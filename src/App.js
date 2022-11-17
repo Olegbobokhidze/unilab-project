@@ -1,24 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
-
+import GetStartedPage from "./GetStartedPage";
+import TodoList from "./TodoList";
+import { GlobalStyle } from "./GlobalStyle";
+import SignInPage from "./SignInPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import useLocalStorage from "./useLocalStorage";
+import { Navigate } from "react-router-dom";
 function App() {
+  const [image, setImage] = useLocalStorage("image", []);
+  const [name, setName] = useLocalStorage("name", []);
+  const [loggedIn, setLoggedIn] = useLocalStorage("login", false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <GlobalStyle />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !loggedIn ? <GetStartedPage /> : <Navigate to="/todolist" />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              !loggedIn ? (
+                <SignInPage
+                  image={image}
+                  setImage={setImage}
+                  name={name}
+                  setName={setName}
+                  setLoggedIn={setLoggedIn}
+                  loggedIn={loggedIn}
+                />
+              ) : (
+                <Navigate to="/todolist" />
+              )
+            }
+          />
+          <Route
+            path="/todolist"
+            element={
+              loggedIn ? (
+                <TodoList
+                  image={image}
+                  name={name}
+                  setImage={setImage}
+                  setName={setName}
+                  setLoggedIn={setLoggedIn}
+                  loggedIn={loggedIn}
+                />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
