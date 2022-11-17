@@ -1,6 +1,5 @@
 # Unilab - To do list project
 
-![Design preview for the todo app coding challenge](https://user-images.githubusercontent.com/105369627/202433763-e43c8eea-d46c-4996-a041-bf734e0a7c9a.png)
 ![Screenshot from 2022-11-17 15-25-21](https://user-images.githubusercontent.com/105369627/202434396-b449c61f-f854-469b-a290-29daa50f491b.png)
 
 - [Overview](#overview)
